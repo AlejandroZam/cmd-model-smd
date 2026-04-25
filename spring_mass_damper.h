@@ -15,7 +15,8 @@ public:
     void loadConfig(const std::string& path) override;
     void seed(uint64_t s) override;
     void initialize() override;
-    void update() override;
+    void eventUpdate() override;
+    void derivatives() override;
     void report() override;
 
     ACCESS_FN(double, pos)
@@ -28,8 +29,9 @@ public:
     double vel_dot = 0.0;
 
 private:
-    double   posNoisy_  = 0.0;
-    double   mass_      = 1.0;
+    double   posNoisy_   = 0.0;
+    double   forceNoise_ = 0.0;
+    double   mass_       = 1.0;
     double   damping_   = 0.0;
     double   stiffness_ = 1.0;
     double   pos0_      = 0.0;

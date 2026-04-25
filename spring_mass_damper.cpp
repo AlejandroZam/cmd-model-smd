@@ -56,11 +56,15 @@ void SpringMassDamper::initialize() {
                      logFmt, outputSignals_);
 }
 
-void SpringMassDamper::update() {
+void SpringMassDamper::eventUpdate() {
+    forceNoise_ = noiseForce_.sample();
+}
+
+void SpringMassDamper::derivatives() {
     pos_dot = vel;
     vel_dot = -(damping_ / mass_) * vel
               -(stiffness_ / mass_) * pos
-              + noiseForce_.sample() / mass_;
+              + forceNoise_ / mass_;
 }
 
 void SpringMassDamper::report() {
