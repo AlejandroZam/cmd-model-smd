@@ -10,13 +10,13 @@ if(NOT TARGET osk)
     find_package(osk 1.0.0 REQUIRED)
 endif()
 
-add_library(smd STATIC spring_mass_damper.cpp)
+add_library(smd STATIC src/spring_mass_damper.cpp)
 target_include_directories(smd PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
 )
 target_link_libraries(smd PUBLIC osk)
 
 install(TARGETS smd EXPORT smd-targets ARCHIVE DESTINATION lib)
-install(FILES spring_mass_damper.h  DESTINATION include)
-install(FILES default_params.yaml   DESTINATION share/cmd-model-smd)
+install(FILES include/spring_mass_damper.h DESTINATION include)
+install(FILES Config/default_params.yaml   DESTINATION share/cmd-model-smd)
